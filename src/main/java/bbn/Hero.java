@@ -5,11 +5,13 @@ import java.util.Map;
 
 public class Hero {
     private final String name;
-    private Map<Ability, Integer> abilities;
+    private final Map<Ability, Integer> abilities;
+    private int abilityPoint;
 
     public Hero(String name) {
         this.name = name;
         this.abilities = getInitialAbilities();
+        this.abilityPoint = 7;
     }
 
     public String getName() {
@@ -29,5 +31,16 @@ public class Hero {
 
     public Map<Ability, Integer> getAbilities() {
         return abilities;
+    }
+
+    public int getAbilityPoint() {
+        return abilityPoint;
+    }
+
+
+    public void upgradeAbility(Ability selectedAbility) {
+        this.abilities.put(selectedAbility, this.abilities.get(selectedAbility) + selectedAbility.getValuePerOnePoint());
+        this.abilityPoint--;
+        System.out.println("You have upgraded " + selectedAbility + "!");
     }
 }

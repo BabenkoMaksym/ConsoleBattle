@@ -7,6 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        AbilityService abilityService = new AbilityService();
 
         System.out.println("Welcome to the ConsoleBattle game!");
         System.out.println("Please enter your name: ");
@@ -15,9 +16,8 @@ public class Main {
         System.out.println("Hello " + hero.getName() + ", welcome to the ConsoleBattle game!\n" +
                 "Let's start the game");
 
-        System.out.println("Your abilities:");
-        for (Map.Entry<Ability, Integer> entry: hero.getAbilities().entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
+        abilityService.printAbilities(hero);
+        abilityService.spendHeroAvailablePoints(hero, scanner);
+
     }
 }
