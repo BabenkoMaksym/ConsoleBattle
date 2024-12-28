@@ -7,7 +7,13 @@ import java.util.Map;
 
 public class AbilityService {
 
-    public void printAbilities(Hero hero) {
+    private final Hero hero;
+
+    public AbilityService(Hero hero) {
+        this.hero = hero;
+    }
+
+    public void printAbilities() {
         System.out.println("Your abilities:");
         for (Map.Entry<Ability, Integer> entry : hero.getAbilities().entrySet()) {
             System.out.print(entry.getKey() + ": " + entry.getValue() + ", ");
@@ -15,25 +21,25 @@ public class AbilityService {
         System.out.println();
     }
 
-    public void spendHeroAvailablePoints(Hero hero) {
-        if (hero.getAbilityPoint() == 0) {
+    public void spendHeroAvailablePoints() {
+        if (hero.getHeroAbilityPoints() == 0) {
             System.out.println("You don't have enough points to spend heroes!");
         }
 
-        while (hero.getAbilityPoint() > 0) {
-            Ability selectedAbility = selectAbility(hero);
+        while (hero.getHeroAbilityPoints() > 0) {
+            Ability selectedAbility = selectAbility();
             if (selectedAbility != null) {
                 hero.upgradeAbility(selectedAbility);
-            };
-            printAbilities(hero);
+            }
+            printAbilities();
         }
     }
 
-    private Ability selectAbility(Hero hero) {
+    private Ability selectAbility() {
 
         Ability ability = null;
 
-        System.out.println("You have " + hero.getAbilityPoint() + " points to spend." + "\n" +
+        System.out.println("You have " + hero.getHeroAbilityPoints() + " points to spend." + "\n" +
                 "Choice ability to upgrade:" + "\n" +
                 "0. Explain abilities" + "\n" +
                 "1. Attack" + "\n" +
@@ -44,7 +50,7 @@ public class AbilityService {
                 "6. Health" + "\n"
         );
         try {
-            int choice = Integer.parseInt(InputUtils.scanner.nextLine());
+            int choice = InputUtils.readInt();
             Map<Ability, Integer> abilities = hero.getAbilities();
             switch (choice) {
                 case 0:
@@ -73,7 +79,7 @@ public class AbilityService {
                     System.out.println("Invalid choice. Please enter a valid choice.");
             }
         } catch (NumberFormatException e) {
-            System.out.println("Invalid choice. Please enter a valid number.");
+            System.out.println(e.getMessage());
         }
         return ability;
     }
