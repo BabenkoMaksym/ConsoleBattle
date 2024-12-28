@@ -1,4 +1,4 @@
-package bbn;
+package bbn.ConsoleBattle.ability;
 
 public enum Ability {
 

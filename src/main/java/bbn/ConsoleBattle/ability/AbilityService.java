@@ -1,7 +1,9 @@
-package bbn;
+package bbn.ConsoleBattle.ability;
+
+import bbn.ConsoleBattle.hero.Hero;
+import bbn.ConsoleBattle.utils.InputUtils;
 
 import java.util.Map;
-import java.util.Scanner;
 
 public class AbilityService {
 
@@ -13,13 +15,13 @@ public class AbilityService {
         System.out.println();
     }
 
-    public void spendHeroAvailablePoints(Hero hero, Scanner scanner) {
+    public void spendHeroAvailablePoints(Hero hero) {
         if (hero.getAbilityPoint() == 0) {
             System.out.println("You don't have enough points to spend heroes!");
         }
 
         while (hero.getAbilityPoint() > 0) {
-            Ability selectedAbility = selectAbility(scanner,hero);
+            Ability selectedAbility = selectAbility(hero);
             if (selectedAbility != null) {
                 hero.upgradeAbility(selectedAbility);
             };
@@ -27,7 +29,7 @@ public class AbilityService {
         }
     }
 
-    private Ability selectAbility(Scanner scanner, Hero hero) {
+    private Ability selectAbility(Hero hero) {
 
         Ability ability = null;
 
@@ -42,7 +44,7 @@ public class AbilityService {
                 "6. Health" + "\n"
         );
         try {
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = Integer.parseInt(InputUtils.scanner.nextLine());
             Map<Ability, Integer> abilities = hero.getAbilities();
             switch (choice) {
                 case 0:

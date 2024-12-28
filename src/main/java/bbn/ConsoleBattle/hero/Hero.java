@@ -1,4 +1,6 @@
-package bbn;
+package bbn.ConsoleBattle.hero;
+
+import bbn.ConsoleBattle.ability.Ability;
 
 import java.util.HashMap;
 import java.util.Map;
