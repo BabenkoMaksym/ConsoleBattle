@@ -10,14 +10,16 @@ public class Hero {
 
 
     private String name;
-    private final Map<Ability, Integer> abilities;
+    private Map<Ability, Integer> abilities;
     private int heroAbilityPoints;
+    private int heroUpgradedAbilityPoints;
     private int level;
 
     public Hero() {
         this.abilities = getInitialAbilities();
         this.heroAbilityPoints = Constant.START_ABILITY_POINTS;
         this.level = Constant.INITIAL_HERO_LEVEL;
+        this.heroUpgradedAbilityPoints = 0;
     }
 
 
@@ -41,10 +43,22 @@ public class Hero {
     public void upgradeAbility(Ability selectedAbility) {
         this.abilities.put(selectedAbility, this.abilities.get(selectedAbility) + selectedAbility.getValuePerOnePoint());
         this.heroAbilityPoints--;
+        this.heroUpgradedAbilityPoints++;
         System.out.println("You have upgraded " + selectedAbility + "!");
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public int getHeroUpgradedAbilityPoints() {
+        return heroUpgradedAbilityPoints;
+    }
+
+    public void removeAbilities() {
+        abilities = getInitialAbilities();
+        heroAbilityPoints = heroUpgradedAbilityPoints;
+        heroUpgradedAbilityPoints = 0;
     }
 }

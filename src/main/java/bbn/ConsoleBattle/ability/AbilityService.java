@@ -21,6 +21,33 @@ public class AbilityService {
         System.out.println();
     }
 
+    public void upgradeAbilities() {
+        System.out.println("Your abilities are:");
+        for (Map.Entry<Ability, Integer> entry : hero.getAbilities().entrySet()) {
+            System.out.print(entry.getKey() + ": " + entry.getValue() + ", ");
+        }
+        System.out.println();
+        System.out.println("0. Back");
+        System.out.println("1. Spend points (" + hero.getHeroAbilityPoints() + " points left)");
+        System.out.println("2. Remove points (" + hero.getHeroUpgradedAbilityPoints() + " points)");
+
+        try {
+            final int choice = InputUtils.readInt();
+            switch (choice) {
+                case 0 -> {}
+                case 1 -> {
+                    printAbilities();
+                    spendHeroAvailablePoints();
+                }
+                case 2 -> hero.removeAbilities();
+                default -> System.out.println("Invalid choice");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
     public void spendHeroAvailablePoints() {
         if (hero.getHeroAbilityPoints() == 0) {
             System.out.println("You don't have enough points to spend heroes!");

@@ -34,7 +34,7 @@ public class GameManager {
                         //TODO fight
                         this.currentGameLevel++;
                     }
-                    case 1 -> abilityService.spendHeroAvailablePoints();
+                    case 1 -> abilityService.upgradeAbilities();
 
                     case 2 -> {
                         //Save game
