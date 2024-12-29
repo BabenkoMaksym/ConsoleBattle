@@ -1,5 +1,6 @@
 .gradle
 build/
+save-games
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
