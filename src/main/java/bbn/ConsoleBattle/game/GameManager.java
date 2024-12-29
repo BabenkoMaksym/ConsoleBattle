@@ -82,8 +82,10 @@ public class GameManager {
                         break;
                     }
                     case 1 -> {
-                        loadGame();
-                        break;
+                        if (loadGame()) {
+                            break;
+                        }
+                        continue;
                     }
                     default -> {
                         System.out.println("Please enter a valid choice");
@@ -106,28 +108,34 @@ public class GameManager {
             return false;
         }
 
-        System.out.println("Enter number of save you want to load: ");
-        for (int i = 0; i < savedFiles.length; i++) {
-            System.out.println(i + ". " + savedFiles[i].getName());
-        }
-        try {
-            final int choice = InputUtils.readInt();
-            if (choice >= 0 && choice < savedFiles.length) {
-                final File savedFile = savedFiles[choice];
-                if (savedFile.exists()) {
-                    BufferedReader reader = new BufferedReader(new FileReader(savedFile));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    String loadGameStr = stringBuilder.toString();
-                    this.hero = heroService.stringToHero(loadGameStr);
+        while ( true) {
 
-                }
+            System.out.println("Enter number of save you want to load: ");
+            for (int i = 0; i < savedFiles.length; i++) {
+                System.out.println(i + ". " + savedFiles[i].getName());
             }
-        } catch (NumberFormatException | IOException e) {
-            System.out.println(e.getMessage());
+            try {
+                final int choice = InputUtils.readInt();
+                if (choice >= 0 && choice < savedFiles.length) {
+                    final File savedFile = savedFiles[choice];
+                    if (savedFile.exists()) {
+                        BufferedReader reader = new BufferedReader(new FileReader(savedFile));
+                        StringBuilder stringBuilder = new StringBuilder();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            stringBuilder.append(line).append("\n");
+                        }
+                        String loadGameStr = stringBuilder.toString();
+                        this.hero = heroService.stringToHero(loadGameStr);
+                    }
+                    break;
+                } else {
+                    System.out.println("Please enter a valid choice");
+                    continue;
+                }
+            } catch (NumberFormatException | IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
         return true;
     }
