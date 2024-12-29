@@ -7,13 +7,8 @@ import java.util.Map;
 
 public class AbilityService {
 
-    private final Hero hero;
 
-    public AbilityService(Hero hero) {
-        this.hero = hero;
-    }
-
-    public void printAbilities() {
+    public void printAbilities(Hero hero) {
         System.out.println("Your abilities:");
         for (Map.Entry<Ability, Integer> entry : hero.getAbilities().entrySet()) {
             System.out.print(entry.getKey() + ": " + entry.getValue() + ", ");
@@ -21,7 +16,7 @@ public class AbilityService {
         System.out.println();
     }
 
-    public void upgradeAbilities() {
+    public void upgradeAbilities(Hero hero) {
         System.out.println("Your abilities are:");
         for (Map.Entry<Ability, Integer> entry : hero.getAbilities().entrySet()) {
             System.out.print(entry.getKey() + ": " + entry.getValue() + ", ");
@@ -36,8 +31,8 @@ public class AbilityService {
             switch (choice) {
                 case 0 -> {}
                 case 1 -> {
-                    printAbilities();
-                    spendHeroAvailablePoints();
+                    printAbilities(hero);
+                    spendHeroAvailablePoints(hero);
                 }
                 case 2 -> hero.removeAbilities();
                 default -> System.out.println("Invalid choice");
@@ -48,21 +43,21 @@ public class AbilityService {
     }
 
 
-    public void spendHeroAvailablePoints() {
+    public void spendHeroAvailablePoints(Hero hero) {
         if (hero.getHeroAbilityPoints() == 0) {
             System.out.println("You don't have enough points to spend heroes!");
         }
 
         while (hero.getHeroAbilityPoints() > 0) {
-            Ability selectedAbility = selectAbility();
+            Ability selectedAbility = selectAbility(hero);
             if (selectedAbility != null) {
                 hero.upgradeAbility(selectedAbility);
             }
-            printAbilities();
+            printAbilities(hero);
         }
     }
 
-    private Ability selectAbility() {
+    private Ability selectAbility(Hero hero) {
 
         Ability ability = null;
 

@@ -13,13 +13,21 @@ public class Hero {
     private Map<Ability, Integer> abilities;
     private int heroAbilityPoints;
     private int heroUpgradedAbilityPoints;
-    private int level;
+    private int currentGameLevel;
+
+    public int getCurrentGameLevel() {
+        return currentGameLevel;
+    }
+
+    public void upCurrentGameLevel() {
+        currentGameLevel++;
+    }
 
     public Hero() {
         this.abilities = getInitialAbilities();
         this.heroAbilityPoints = Constant.START_ABILITY_POINTS;
-        this.level = Constant.INITIAL_HERO_LEVEL;
         this.heroUpgradedAbilityPoints = 0;
+        this.currentGameLevel = Constant.INITIAL_GAME_LEVEL;
     }
 
 
@@ -61,4 +69,21 @@ public class Hero {
         heroAbilityPoints = heroUpgradedAbilityPoints;
         heroUpgradedAbilityPoints = 0;
     }
+
+    public void setAbilities(Map<Ability, Integer> abilities) {
+        this.abilities = abilities;
+    }
+
+    public void setHeroAbilityPoints(int heroAbilityPoints) {
+        this.heroAbilityPoints = heroAbilityPoints;
+    }
+
+    public void setHeroUpgradedAbilityPoints(int heroUpgradedAbilityPoints) {
+        this.heroUpgradedAbilityPoints = heroUpgradedAbilityPoints;
+    }
+
+    public void setCurrentGameLevel(int currentGameLevel) {
+        this.currentGameLevel = currentGameLevel;
+    }
+
 }
