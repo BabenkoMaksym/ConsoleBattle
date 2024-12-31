@@ -1,26 +1,42 @@
 package bbn.ConsoleBattle.game;
 
+import bbn.ConsoleBattle.ability.Ability;
+import bbn.ConsoleBattle.domain.Enemy;
 import bbn.ConsoleBattle.services.AbilityService;
 import bbn.ConsoleBattle.domain.Hero;
+import bbn.ConsoleBattle.services.BattleService;
 import bbn.ConsoleBattle.services.HeroService;
+import bbn.ConsoleBattle.utils.EnemyGenerator;
 import bbn.ConsoleBattle.utils.InputUtils;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map;
 
 public class GameManager {
 
 
-    private Hero hero = new Hero();
-    private final AbilityService abilityService = new AbilityService();
-    private final HeroService heroService = new HeroService();
+    private Hero hero;
+    private final AbilityService abilityService;
+    private final HeroService heroService;
+    private final Map<Integer, Enemy> enemiesByLevel;
+    private final BattleService battleService;
 
+    public GameManager() {
+        this.hero = new Hero();
+        this.abilityService = new AbilityService();
+        this.heroService = new HeroService();
+        this.enemiesByLevel = EnemyGenerator.createEnemies();
+        this.battleService = new BattleService(this.abilityService);
+    }
 
     public void startGame() {
         this.initGame();
 
-        while (hero.getCurrentGameLevel() <= 5) {
-            System.out.println("0. Fight " + "level " + hero.getCurrentGameLevel());
+        while (hero.getCurrentGameLevel() <= enemiesByLevel.size()) {
+            Enemy enemy = enemiesByLevel.get(hero.getCurrentGameLevel());
+            System.out.println("0. Fight " + enemy.getName() + "(level " + hero.getCurrentGameLevel() + ")");
             System.out.println("1. Upgrade ability (" + hero.getHeroAbilityPoints() + " points to spend!)");
             System.out.println("2. Save game");
             System.out.println("3. Exit game");
@@ -29,8 +45,12 @@ public class GameManager {
                 final int choice = InputUtils.readInt();
                 switch (choice) {
                     case 0 -> {
-                        //TODO fight
-                        hero.upCurrentGameLevel();
+                        if (battleService.isHeroReadyToBattle(this.hero, enemy)) {
+                            final int heroHealthBeforeBattle = this.hero.getAbilities().get(Ability.HEALTH);
+
+                            //TODO battle
+                            hero.upCurrentGameLevel();
+                        }
                     }
                     case 1 -> abilityService.upgradeAbilities(hero);
 
@@ -107,7 +127,7 @@ public class GameManager {
             return false;
         }
 
-        while ( true) {
+        while (true) {
 
             System.out.println("Enter number of save you want to load: ");
             for (int i = 0; i < savedFiles.length; i++) {

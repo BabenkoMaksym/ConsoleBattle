@@ -1,6 +1,7 @@
 package bbn.ConsoleBattle.services;
 
 import bbn.ConsoleBattle.ability.Ability;
+import bbn.ConsoleBattle.domain.GameCharacter;
 import bbn.ConsoleBattle.domain.Hero;
 import bbn.ConsoleBattle.utils.InputUtils;
 
@@ -9,9 +10,9 @@ import java.util.Map;
 public class AbilityService {
 
 
-    public void printAbilities(Hero hero) {
+    public void printAbilities(GameCharacter gameCharacter) {
         System.out.println("Your abilities:");
-        for (Map.Entry<Ability, Integer> entry : hero.getAbilities().entrySet()) {
+        for (Map.Entry<Ability, Integer> entry : gameCharacter.getAbilities().entrySet()) {
             System.out.print(entry.getKey() + ": " + entry.getValue() + ", ");
         }
         System.out.println();
