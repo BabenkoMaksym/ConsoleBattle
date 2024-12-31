@@ -1,4 +1,4 @@
-package bbn.ConsoleBattle.hero;
+package bbn.ConsoleBattle.domain;
 
 import bbn.ConsoleBattle.ability.Ability;
 import bbn.ConsoleBattle.constant.Constant;
@@ -6,7 +6,7 @@ import bbn.ConsoleBattle.constant.Constant;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Hero {
+public class Hero extends GameCharacter{
 
 
     private String name;

@@ -1,9 +1,8 @@
 package bbn.ConsoleBattle.game;
 
-import bbn.ConsoleBattle.ability.AbilityService;
-import bbn.ConsoleBattle.constant.Constant;
-import bbn.ConsoleBattle.hero.Hero;
-import bbn.ConsoleBattle.hero.HeroService;
+import bbn.ConsoleBattle.services.AbilityService;
+import bbn.ConsoleBattle.domain.Hero;
+import bbn.ConsoleBattle.services.HeroService;
 import bbn.ConsoleBattle.utils.InputUtils;
 
 import java.io.*;

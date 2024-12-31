@@ -1,6 +1,7 @@
-package bbn.ConsoleBattle.ability;
+package bbn.ConsoleBattle.services;
 
-import bbn.ConsoleBattle.hero.Hero;
+import bbn.ConsoleBattle.ability.Ability;
+import bbn.ConsoleBattle.domain.Hero;
 import bbn.ConsoleBattle.utils.InputUtils;
 
 import java.util.Map;
