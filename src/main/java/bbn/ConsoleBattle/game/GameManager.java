@@ -48,8 +48,19 @@ public class GameManager {
                         if (battleService.isHeroReadyToBattle(this.hero, enemy)) {
                             final int heroHealthBeforeBattle = this.hero.getAbilities().get(Ability.HEALTH);
 
-                            //TODO battle
-                            hero.upCurrentGameLevel();
+                            final boolean hasHeroWon = battleService.battle(this.hero, enemy);
+                            if (hasHeroWon) {
+                                abilityService.printAbilities(this.hero);
+                                System.out.println("You have won this battle. You have gained " + this.hero.getCurrentGameLevel() + " ability points.");
+                                this.hero.addHeroAbilityPoints(this.hero.getCurrentGameLevel());
+                                this.hero.upCurrentGameLevel();
+                            }else {
+                                System.out.println("You have lost this battle.");
+                            }
+
+                            this.hero.restoreHealth(heroHealthBeforeBattle);
+                            System.out.println("You have full health non.");
+                            abilityService.printAbilities(this.hero);
                         }
                     }
                     case 1 -> abilityService.upgradeAbilities(hero);

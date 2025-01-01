@@ -24,4 +24,8 @@ public abstract class GameCharacter {
     public Map<Ability, Integer> getAbilities() {
         return abilities;
     }
+
+    public void receiveDamage(int damage) {
+        abilities.put(Ability.HEALTH, Math.max(0, abilities.get(Ability.HEALTH) - damage));
+    }
 }
